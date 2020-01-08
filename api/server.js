@@ -1,6 +1,6 @@
 const express = require("express")
 const server = express()
-const dotenv = require('dotenv');
+const dotenv = require('./node_module/dotenv');
 const studentsRouter = require("./src/students/index")
 const listEndpoints = require("express-list-endpoints");
 const cors = require("cors")

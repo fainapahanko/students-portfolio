@@ -2,7 +2,7 @@ const path = require("path")
 const fs = require("fs")
 const express = require("express")
 const router = express.Router()
-const { sanitize } = require("express-validator");
+const { sanitize } = require("../../node_module/express-validator");
 
 const filePath = path.join(__dirname,"students.json")
 
