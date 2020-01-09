@@ -2,6 +2,7 @@ const express = require("express")
 const server = express()
 const dotenv = require("dotenv")
 const studentsRouter = require("./src/students/index")
+const projectsRouter = require("./src/projects/index")
 const listEndpoints = require("express-list-endpoints");
 const cors = require("cors")
 const mongoose = require("mongoose")
@@ -15,6 +16,7 @@ server.use(cors())
 const port = process.env.PORT
 
 server.use("/students", studentsRouter)
+server.use("/projects", projectsRouter)
 
 const LoggerMiddleware = (req, res, next) => {
     console.log(`Logged ${req.url} ${req.method} -- ${new Date()}`);

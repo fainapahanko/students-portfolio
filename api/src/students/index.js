@@ -18,7 +18,11 @@ router.get("/:id", async(req, res) => {
 
 router.post("/", async(req, res) => {
     try{
-        const newStudent = await Student.create(req.body)
+        const obj = {
+            ...req.body,
+            numberOfProjects: 0
+        }
+        const newStudent = await Student.create(obj)
         newStudent.save()
         res.send(newStudent)
     } catch(err){
@@ -29,9 +33,19 @@ router.post("/", async(req, res) => {
 router.put("/:id", async(req, res) => {
     try{
         delete req.body._id
-        const newStudent = await Student.findOneAndUpdate({_id: req.params.id}, {$set: {...req.body}})
+        const obj = {
+            ...req.body,
+            updatedAy: new Date()
+        }
+        const newStudent = await Student.findOneAndUpdate({_id: req.params.id}, {$set: {obj}}, (err, updatedProfile) => {
+            if(err){
+                console.log(err.message);
+            } else {
+                console.log(updatedProfile);
+            }
+        })
         newStudent.save()
-        req.send(student)
+        res.send(newStudent)
     } catch(err){
         res.send(err)
     }

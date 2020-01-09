@@ -21,6 +21,9 @@ const studentsSchema = new mongoose.Schema({
     imgUrl: { 
         type: String,
         required: false
+    },
+    numberOfProjects: {
+        type: Number
     }
 })
 
