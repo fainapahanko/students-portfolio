@@ -1,7 +1,6 @@
 import React from 'react';
 import Students from './Students'
 import {Container, Row, Col} from 'reactstrap'
-import AddProject from './AddProject'
 
 class Main extends React.Component {
     state = { 
@@ -28,9 +27,6 @@ class Main extends React.Component {
                         <Row>
                             {this.state.students && this.state.students.map((st,i) => (<Students student={st} key={i} />))}
                         </Row>
-                    </Col>
-                    <Col md="4">
-                        <AddProject />
                     </Col>
                 </Row>
             </Container>

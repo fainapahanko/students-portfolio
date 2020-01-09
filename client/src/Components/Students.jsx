@@ -1,10 +1,13 @@
 import React from 'react';
+import UpdateStudent from './UpdateStudent' 
 import {  Card, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Col} from 'reactstrap'
 class Students extends React.Component {
-    state = {  }
+    state = { 
+        isOpen: false
+     }
     toDelete = async() => {
-        let response = await fetch("http://localhost:5000/students/" + this.props.student.id,{
+        let response = await fetch("http://localhost:5000/students/" + this.props.student._id,{
             method: "DELETE",
             headers: {
                 "content-type": "application/json"
@@ -12,17 +15,22 @@ class Students extends React.Component {
         })
         return response
     }
+    toUpdate = () => {
+        this.setState({
+            isOpen: !this.state.isOpen
+        })
+    }
     render() { 
         return ( 
             <Col className="m-3" md="4">
             <Card>
               <CardBody>
-                <CardTitle>{this.props.student.name}</CardTitle>
-                <CardSubtitle>{this.props.student.description}</CardSubtitle>
-                <CardText>Created {this.props.student.created}</CardText>
-                <CardText>RepoLink <a href={this.props.student.RepoURL}>{this.props.student.RepoURL}</a></CardText>
-                <CardText>ProjectLink <a href={this.props.student.LiveURL}>{this.props.student.LiveURL}</a></CardText>
-                <Button onClick={this.toDelete}>Delete</Button>
+                <CardTitle>{this.props.student.name} {this.props.student.surname}</CardTitle>
+                <CardSubtitle>{this.props.student.email}</CardSubtitle>
+                <CardText>Projects</CardText>
+                <Button className="mr-3 btn-danger" onClick={this.toDelete}>Delete</Button>
+                <Button className="btn-info" onClick={this.toUpdate}>Update</Button>
+                {this.state.isOpen && <UpdateStudent toClose={this.toUpdate} student={this.props.student} modal={this.state.isOpen} />}
               </CardBody>
             </Card>
           </Col>
