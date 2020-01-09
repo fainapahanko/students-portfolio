@@ -1,25 +1,14 @@
-const path = require("path")
-const fs = require("fs")
 const express = require("express")
 const router = express.Router()
-const { sanitize } = require("../../node_module/express-validator");
+const Student = require("../models/students/index")
 
-const filePath = path.join(__dirname,"students.json")
-
-const readFile = () => {
-    const buffer = fs.readFileSync(filePath)
-    const fileContent = buffer.toString()
-    return JSON.parse(fileContent)
-}
-
-router.get("/", (req, res) => {
-    const studentsArray = readFile()
-    res.send(studentsArray)
+router.get("/", async (req, res) => {
+    const students = await Student.find({})
+    res.send(students)
 })
 
-router.get("/:id", [sanitize("id").toInt()], (req, res) => {
-    const studentsArray = readFile()
-    const student = studentsArray.filter(students => students.id === req.params.id)
+router.get("/:id", async(req, res) => {
+    const student = await Student.findOnde({_id: req.params.id})
     if(student){
         res.status(200).send(student)
     } else {
@@ -27,37 +16,34 @@ router.get("/:id", [sanitize("id").toInt()], (req, res) => {
     }
 })
 
-router.post("/", (req, res) => {
-    const studentsArray = readFile()
-    const student = {
-        name: req.body.name,
-        description: req.body.description,
-        created: req.body.created,
-        RepoURL: req.body.RepoURL,
-        LiveURL: req.body.LiveURL,
-        StudentID: req.body.StudentID,
-        id: studentsArray.length + 1,
+router.post("/", async(req, res) => {
+    try{
+        const newStudent = await Student.create(req.body)
+        newStudent.save()
+        res.send(newStudent)
+    } catch(err){
+        res.send(err)
     }
-    studentsArray.push(student)
-    fs.writeFileSync(filePath, JSON.stringify(studentsArray))
-    res.send(studentsArray)
 })
 
-router.put("/:id", (req, res) => {
-    const studentsArray = readFile()
-    const edited = req.body
-    studentsArray[req.params.id-1] = edited
-    fs.writeFileSync(filePath, JSON.stringify(studentsArray))
-    res.send(edited);
+router.put("/:id", async(req, res) => {
+    try{
+        delete req.body._id
+        const newStudent = await Student.findOneAndUpdate({_id: req.params.id}, {$set: {...req.body}})
+        newStudent.save()
+        req.send(student)
+    } catch(err){
+        res.send(err)
+    }
 })
 
-router.delete("/:id", [sanitize("id").toInt()], (req, res) => {
-    const studentsArray = readFile()
-    const filteredArray = studentsArray.filter(student => student.id !== req.params.id)
-    if(studentsArray > filteredArray){
-        fs.writeFileSync(filePath, JSON.stringify(filteredArray))
-    } else {
-        console.log("student not found")
+router.delete("/:id", async(req, res) => {
+    try{
+        const student = await Student.findOneAndDelete({_id:req.params.id})
+        if(student) res.send("deleted")
+        else res.send("student not found")
+    } catch(err){
+        console.log(err)
     }
 })
 

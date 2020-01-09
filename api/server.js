@@ -1,9 +1,13 @@
 const express = require("express")
 const server = express()
-const dotenv = require('./node_module/dotenv');
+const dotenv = require("dotenv")
 const studentsRouter = require("./src/students/index")
 const listEndpoints = require("express-list-endpoints");
 const cors = require("cors")
+const mongoose = require("mongoose")
+
+mongoose.connect("mongodb://localhost:27017/student-portfolio",{useNewUrlParser: true})
+  .then(db => console.log("connected to mongodb"), err => console.log("error", err))
 dotenv.config();
 
 server.use(express.json())
@@ -27,9 +31,7 @@ server.use((err, req, res, next) => {
 });
 
 server.use((err, req, res, next) => {
-    // console.log(err);
     if (!res.headersSent) {
-      // perchè potrebbe avere mandato già uno dei middlewares di sopra
       res.status(err.httpStatusCode || 500).send(err);
     }
 });
