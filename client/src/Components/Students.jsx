@@ -27,7 +27,7 @@ class Students extends React.Component {
               <CardBody>
                 <CardTitle>{this.props.student.name} {this.props.student.surname}</CardTitle>
                 <CardSubtitle>{this.props.student.email}</CardSubtitle>
-                <CardText>Projects</CardText>
+                <CardText>Projects {this.props.student.numberOfProjects}</CardText>
                 <Button className="mr-3 btn-danger" onClick={this.toDelete}>Delete</Button>
                 <Button className="btn-info" onClick={this.toUpdate}>Update</Button>
                 {this.state.isOpen && <UpdateStudent toClose={this.toUpdate} student={this.props.student} modal={this.state.isOpen} />}

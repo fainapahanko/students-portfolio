@@ -28,28 +28,20 @@ class AddProject extends React.Component {
             <div style={{backgroundColor: "white", borderRadius: "10px"}} className="p-4">
             <Form onSubmit={this.addStudentProject}>
             <FormGroup>
-              <Label for="exampleEmail">Email</Label>
-              <Input onChange={this.handleChange} type="email" name="email" id="email" placeholder="email" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">name</Label>
+              <Label>Title</Label>
               <Input onChange={this.handleChange} type="text" id="name" placeholder="name" />
             </FormGroup>
             <FormGroup>
-              <Label for="examplePassword">created</Label>
+              <Label>created</Label>
               <Input onChange={this.handleChange} type="date" id="created"/>
             </FormGroup>
             <FormGroup>
-              <Label for="examplePassword">RepoURL</Label>
+              <Label>RepoURL</Label>
               <Input onChange={this.handleChange} type="text" id="RepoURL" placeholder="RepoURL" />
             </FormGroup>
             <FormGroup>
-              <Label for="examplePassword">LiveURL</Label>
+              <Label>LiveURL</Label>
               <Input onChange={this.handleChange} type="text" id="LiveURL" placeholder="LiveURL" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">StudentID</Label>
-              <Input onChange={this.handleChange} type="text" id="StudentID" placeholder="password placeholder" />
             </FormGroup>
             <Button className="btn-warning" type="submit">Add</Button>
             </Form>

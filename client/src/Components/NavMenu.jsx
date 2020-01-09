@@ -14,7 +14,7 @@ class NavMenu extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              to="/add$student"
+              href="/add$student"
               style={{ textDecoration: "none" }}
               active
             >
@@ -23,7 +23,7 @@ class NavMenu extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              to="/add$project"
+              href="/add$project"
               style={{ textDecoration: "none" }}
               active
             >
