@@ -26,6 +26,6 @@ const usersSchema = new mongoose.Schema({
 
 usersSchema.plugin(passportMongoose)
 
-const usersCollection = mongoose.model("uuuser", usersSchema)
+const usersCollection = mongoose.model("user", usersSchema)
 
 module.exports = usersCollection
