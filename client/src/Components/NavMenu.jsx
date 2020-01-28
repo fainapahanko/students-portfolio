@@ -6,22 +6,22 @@ class NavMenu extends React.Component {
   render() {
     return (
       <div>
-        <Nav className="pl-5">
+        <Nav className="pl-4">
           <NavItem>
-            <NavLink href="/" style={{ textDecoration: "none" }} active>
+            <NavLink href="/" style={{ textDecoration: "none", color: "black", fontWeight: "bold", fontSize: "20px" }} active>
               Home
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink
               href="/add$student"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "black", fontWeight: "bold", fontSize: "20px"}}
               active
             >
               Add Student
             </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink
               href="/add$project"
               style={{ textDecoration: "none" }}
@@ -29,7 +29,7 @@ class NavMenu extends React.Component {
             >
               Add Project
             </NavLink>
-          </NavItem>
+          </NavItem> */}
         </Nav>
       </div>
     );

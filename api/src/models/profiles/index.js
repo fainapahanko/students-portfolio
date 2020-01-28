@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const studentsSchema = new mongoose.Schema({
+const profileSchema = new mongoose.Schema({
     name: { 
         type: String,
         required: true
@@ -24,9 +24,13 @@ const studentsSchema = new mongoose.Schema({
     },
     numberOfProjects: {
         type: Number
-    }
+    },
+    projects: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'project'
+    }],
 })
 
-const studentCollection = mongoose.model("student", studentsSchema)
+const profileCollection = mongoose.model("profile", profileSchema)
 
-module.exports = studentCollection
+module.exports = profileCollection

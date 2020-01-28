@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form, FormGroup, Label, Input, Container} from 'reactstrap'
+import {Button, Form, FormGroup, Label, Input, Modal} from 'reactstrap'
 
 class AddProject extends React.Component {
     state = { 
@@ -13,40 +13,44 @@ class AddProject extends React.Component {
     }
     addStudentProject = async(e) => {
       e.preventDefault()
-      let response = await fetch("http://localhost:5000/projects", {
+      let response = await fetch("http://localhost:5000/projects/" + this.props.student._id + "/" + this.props.student.name + "/" + this.props.student.surname, {
           method: "POST",
           body: JSON.stringify(this.state.newProject),
           headers: {
               "Content-Type": "application/json"
           }
       })
+      this.props.toClose()
+      this.props.fetchSt()
+      this.props.fetchPr()
       return response
     }
     render() { 
         return (
-          <Container fluid className="p-5" style={{backgroundColor: "#181818", minHeight: "100vh"}}>
+          <Modal isOpen={this.props.modal}>
             <div style={{backgroundColor: "white", borderRadius: "10px"}} className="p-4">
             <Form onSubmit={this.addStudentProject}>
             <FormGroup>
               <Label>Title</Label>
-              <Input onChange={this.handleChange} type="text" id="name" placeholder="name" />
+              <Input onChange={this.handleChange} type="text" id="title" placeholder="name" />
             </FormGroup>
             <FormGroup>
-              <Label>created</Label>
-              <Input onChange={this.handleChange} type="date" id="created"/>
+              <Label>Description</Label>
+              <Input onChange={this.handleChange} type="text" id="description" placeholder="Description" />
             </FormGroup>
             <FormGroup>
               <Label>RepoURL</Label>
-              <Input onChange={this.handleChange} type="text" id="RepoURL" placeholder="RepoURL" />
+              <Input onChange={this.handleChange} type="text" id="gitUrl" placeholder="RepoURL" />
             </FormGroup>
             <FormGroup>
               <Label>LiveURL</Label>
-              <Input onChange={this.handleChange} type="text" id="LiveURL" placeholder="LiveURL" />
+              <Input onChange={this.handleChange} type="text" id="liveUrl" placeholder="LiveURL" />
             </FormGroup>
-            <Button className="btn-warning" type="submit">Add</Button>
+            <Button className="btn-warning mr-3" type="submit">Add</Button>
+            <Button className="btn-info" onClick={this.props.toClose} type="button">Cancel</Button>
             </Form>
             </div>
-            </Container>
+            </Modal>
         );
     }
 }

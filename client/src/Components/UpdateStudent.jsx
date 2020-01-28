@@ -16,7 +16,10 @@ class UpdateStudent extends React.Component {
       try{
           let response = await fetch("http://localhost:5000/students/" + this.props.student._id,{
               method: "PUT",
-              body: JSON.stringify(this.state.student)
+              body: JSON.stringify(this.state.student),
+              headers: {
+                "Content-Type": "application/json"
+            }
           })
           return response
       } catch(err){

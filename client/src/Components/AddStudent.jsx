@@ -25,6 +25,7 @@ class AddStudent extends React.Component {
         } catch(err){
             console.log(err)
         }
+        this.props.toClose()
     }
     render() { 
         return ( 

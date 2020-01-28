@@ -9,13 +9,18 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    liveUrl: { 
+    description: {
         type: String,
         required: true
     },
+    liveUrl: { 
+        type: String,
+        required: true,
+        unique: true
+    },
     created:{ 
         type: String,
-        required: true
+        required: false
     }
 })
 
