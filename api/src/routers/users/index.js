@@ -5,11 +5,7 @@ const User = require("../../models/users/index")
 
 router.get('/', async(req,res) => {
     try{
-        const users = await User.find({}, (err) => {
-            if(err){
-                res.send(err)
-            }
-        })
+        const users = await User.find({})
         res.status(200).send(users)
     } catch(err) {
         console.log(err)
@@ -31,14 +27,15 @@ router.post("/", async(req,res) => {
         const user = await User.register(obj, req.body.password,(err, account) => {
             if (err) {
                 console.log("REGISTER err " + err);
-                //return res.render('register', { account : account });
             }
         }) 
+        //const user = await User.create(obj)
         console.log("yo1")
         user.save()
         console.log("yo")
         res.status(200).send(user)
     }catch(err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })

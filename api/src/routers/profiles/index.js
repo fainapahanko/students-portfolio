@@ -5,8 +5,9 @@ const Project = require("../../models/projects/index")
 
 router.get("/", async (req, res) => {
     try{
-        res.send(await Profile.findAll({}))
+        res.send(await Profile.find({}))
     } catch(err){
+        console.log(err)
         res.send(err)
     }
 })
